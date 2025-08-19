@@ -9,6 +9,4 @@ app.get("/", (req: Request, res: Response) => {
   res.send("Hello  and Good Morning!");
 });
 
-app.listen(process.env.PORT, () => {
-  console.log(`Express app started at port ${process.env.PORT}`);
-});
+export default app;
