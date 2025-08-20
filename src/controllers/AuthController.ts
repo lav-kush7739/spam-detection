@@ -1,14 +1,23 @@
 import BaseController from "./BaseController.js";
 import { matchedData } from "express-validator";
 import { Request, Response } from "express";
-
-export interface AuthRequest extends Request {}
+import UserService from "../services/UserService.js";
+import HttpStatusCode from "../constants/HttpStatusCodes.js";
 
 export default class AuthController extends BaseController {
   public async userRegister(req: Request, res: Response) {
-    const data = matchedData(req);
-    console.log("matched data is ", data);
-    BaseController.sendJsonResponse(res,200,data);
+    try {
+      const { name, phone, password, email } = matchedData(req);
+      const userService = new UserService();
+      const id = await userService.userRegister(name, phone, password, email);
+      BaseController.sendResponse(
+        res,
+        HttpStatusCode.OK,
+        `User Created Sucessfully with id = ${id}`
+      );
+    } catch (error: any) {
+      BaseController.handleErrors(res, error);
+    }
   }
   public async userLogin() {}
 }

@@ -1,8 +1,10 @@
 import { Response } from "express";
 import HttpStatusCodes from "../constants/HttpStatusCodes.js";
 export default class BaseController {
-
-  protected static async sendEmptyResponse(res: Response, status_code: HttpStatusCodes) {
+  protected static async sendEmptyResponse(
+    res: Response,
+    status_code: HttpStatusCodes
+  ) {
     res.status(status_code).send().end();
   }
 
@@ -20,5 +22,10 @@ export default class BaseController {
     data: unknown
   ) {
     res.status(status_code).json(data).end();
+  }
+
+  protected static handleErrors(res: Response, error: Error) {
+
+    BaseController.sendResponse(res, 400);
   }
 }
