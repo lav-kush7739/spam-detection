@@ -1,5 +1,6 @@
 import { Response } from "express";
 import HttpStatusCodes from "../constants/HttpStatusCodes.js";
+import BadRequest from "../errors/BadRequest.js";
 export default class BaseController {
   protected static async sendEmptyResponse(
     res: Response,
@@ -26,6 +27,13 @@ export default class BaseController {
 
   protected static handleErrors(res: Response, error: Error) {
 
-    BaseController.sendResponse(res, 400);
+    if(error instanceof BadRequest){
+      BaseController.sendResponse(res, HttpStatusCodes.BAD_REQUEST, error.message);
+    }
+    else{
+    console.error('Error occured : ',error);
+    BaseController.sendResponse(res, HttpStatusCodes.INTERNAL_SERVER_ERROR);
+    }
+
   }
 }

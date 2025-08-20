@@ -12,4 +12,11 @@ export default class UserRepository {
     const result = await Database.executeQuery(query, values);
     return result.rows[0].id;
   }
+
+  public async checkIfPhoneExists(phone: string) {
+    const query = `SELECT name from users WHERE phone = $1`;
+    const values = [phone];
+    const result = await Database.executeQuery(query, values);
+    return result.rows.length > 0;
+  }
 }
