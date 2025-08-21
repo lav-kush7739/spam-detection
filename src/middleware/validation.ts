@@ -19,4 +19,9 @@ export const validateUserRegister = [
   body('password').notEmpty().withMessage('Password must be non-empty').isLength({min:6}).withMessage('Password must be at least 6 characters')
 ];
 
+export const validateUserLogin = [
+  body('name').notEmpty().withMessage('Name must be non-empty').trim().isLength({min:2,max:100}),
+  body('phone').notEmpty().withMessage('phone must be non-empty').trim().matches(/^\d{10}$/).withMessage('Must contain 10 digits')
+];
+
 

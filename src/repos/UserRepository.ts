@@ -19,4 +19,15 @@ export default class UserRepository {
     const result = await Database.executeQuery(query, values);
     return result.rows.length > 0;
   }
+
+  public async userLogin(name:string,phone:string){
+    const query = `SELECT name from users where name=$1 and phone=$2;`
+    const values=[name,phone];
+    const result = await Database.executeQuery(query, values);
+    return result.rows;
+  }
+
+  public async addToContacts(){
+    
+  }
 }

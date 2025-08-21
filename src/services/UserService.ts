@@ -22,4 +22,17 @@ export default class UserService {
         return id;
         }
   }
+
+  public async userLogin(
+    name: string,
+    phone: string
+  ) {
+    const details:any = await this.userRepository.userLogin(name,phone);
+      if(details && details.length >0){
+        return true;
+      }
+      return false;
+
+  }
+
 }

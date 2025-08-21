@@ -4,6 +4,7 @@ import AuthController from "../controllers/AuthController.js";
 import {
   validateRequest,
   validateUserRegister,
+  validateUserLogin,
 } from "../middleware/validation.js";
 
 const authRouter = Router();
@@ -16,6 +17,11 @@ authRouter.post(
   validateRequest,
   authController.userRegister
 );
-authRouter.post(Paths.Auth.login, authController.userLogin);
+authRouter.post(
+  Paths.Auth.login,
+  validateUserLogin,
+  validateRequest,
+  authController.userLogin
+);
 
 export default authRouter;
