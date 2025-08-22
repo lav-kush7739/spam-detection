@@ -13,12 +13,13 @@ export default class UserService {
     password: string,
     email?: string
   ) {
-        const Exists = await this.userRepository.checkIfPhoneExists(phone);
+        const Exists = await this.userRepository.checkIfPhoneEmailExists(phone,email);
         if(Exists){
-                throw new BadRequest('Phone number already exists !')
+                throw new BadRequest('Phone number or email already exists !')
         }
         else{
         const id = await this.userRepository.userRegister(name,phone,password,email);
+        await this.userRepository.addToContacts(id, name, phone);
         return id;
         }
   }

@@ -9,7 +9,6 @@ import {
 
 const authRouter = Router();
 const authController = new AuthController();
-console.log('some value ', Paths);
 
 authRouter.post(
   Paths.Auth.register,

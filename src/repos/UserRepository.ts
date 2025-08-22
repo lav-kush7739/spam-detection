@@ -13,21 +13,23 @@ export default class UserRepository {
     return result.rows[0].id;
   }
 
-  public async checkIfPhoneExists(phone: string) {
-    const query = `SELECT name from users WHERE phone = $1`;
-    const values = [phone];
+  public async checkIfPhoneEmailExists(phone: string, email:string | undefined) {
+    const query = `SELECT name from users WHERE phone = $1 OR email=$2`;
+    const values = [phone,email];
     const result = await Database.executeQuery(query, values);
     return result.rows.length > 0;
   }
 
-  public async userLogin(name:string,phone:string){
-    const query = `SELECT name from users where name=$1 and phone=$2;`
-    const values=[name,phone];
+  public async userLogin(name: string, phone: string) {
+    const query = `SELECT name from users where name=$1 and phone=$2;`;
+    const values = [name, phone];
     const result = await Database.executeQuery(query, values);
     return result.rows;
   }
 
-  public async addToContacts(){
-    
+  public async addToContacts(userId: number, name: string, phone: string) {
+    const query = `INSERT INTO contacts (user_id,name,phone) values ($1,$2,$3)`;
+    const values = [userId,name, phone];
+    await Database.executeQuery(query, values);
   }
 }
