@@ -3,6 +3,8 @@ import { matchedData } from "express-validator";
 import { Request, Response } from "express";
 import UserService from "../services/UserService.js";
 import HttpStatusCode from "../constants/HttpStatusCodes.js";
+import  jwt from "jsonwebtoken";
+import { JWT_CONFIG } from "../config/jwt.js";
 
 export default class AuthController extends BaseController {
   public async userRegister(req: Request, res: Response) {
@@ -21,14 +23,15 @@ export default class AuthController extends BaseController {
   }
   public async userLogin(req: Request, res: Response) {
     try {
-      const { name, phone } = matchedData(req);
+      const { name, phone} = matchedData(req);
       const userService = new UserService();
       const isLoggedIn = await userService.userLogin(name, phone);
       if (isLoggedIn) {
+        const token = jwt.sign({ name: name, phone:phone  }, JWT_CONFIG.secret);
         BaseController.sendResponse(
           res,
           HttpStatusCode.OK,
-          `User Logged In with name = ${name} and phone = ${phone}`
+          token
         );
       }
       else {

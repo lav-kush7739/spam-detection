@@ -39,7 +39,22 @@ CREATE INDEX IF NOT EXISTS idx_contacts_name ON contacts(name);
 CREATE INDEX IF NOT EXISTS idx_spam_reports_phone ON spam_reports(phone);
 CREATE INDEX IF NOT EXISTS idx_spam_reports_reported_by ON spam_reports(reported_by);`;
 
+  public readonly SCRIPT_1755922183 = `
+ALTER TABLE contacts
+  ALTER COLUMN name DROP NOT NULL,
+  ALTER COLUMN email DROP NOT NULL,
+  ALTER COLUMN user_id DROP NOT NULL,
+  ALTER COLUMN phone SET NOT NULL;
+`;
+
+public readonly SCRIPT_1755922926 = `
+ALTER TABLE contacts
+ADD COLUMN spam BOOLEAN default FALSE;
+`;
+
   constructor() {
     this.SCRIPTS.set(1755595350, this.SCRIPT_1755595350);
+    this.SCRIPTS.set(1755922183, this.SCRIPT_1755922183);
+    this.SCRIPTS.set(1755922926,this.SCRIPT_1755922926);
   }
 }

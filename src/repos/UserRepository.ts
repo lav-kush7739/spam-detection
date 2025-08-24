@@ -27,9 +27,9 @@ export default class UserRepository {
     return result.rows;
   }
 
-  public async addToContacts(userId: number, name: string, phone: string) {
-    const query = `INSERT INTO contacts (user_id,name,phone) values ($1,$2,$3)`;
-    const values = [userId,name, phone];
+  public async addToContacts(userId: number, name: string, phone: string, email?:string) {
+    const query = `INSERT INTO contacts (user_id,name,phone,email) values ($1,$2,$3,$4)`;
+    const values = [userId,name, phone,email];
     await Database.executeQuery(query, values);
   }
 }

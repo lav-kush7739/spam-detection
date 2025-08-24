@@ -19,7 +19,7 @@ export default class UserService {
         }
         else{
         const id = await this.userRepository.userRegister(name,phone,password,email);
-        await this.userRepository.addToContacts(id, name, phone);
+        await this.userRepository.addToContacts(id, name, phone, email);
         return id;
         }
   }

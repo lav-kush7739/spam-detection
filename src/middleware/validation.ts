@@ -1,4 +1,4 @@
-import { validationResult, body } from "express-validator";
+import { validationResult, body, param, header } from "express-validator";
 import { Request, Response, NextFunction } from "express";
 import HttpStatusCode from "../constants/HttpStatusCodes.js";
 
@@ -21,7 +21,11 @@ export const validateUserRegister = [
 
 export const validateUserLogin = [
   body('name').notEmpty().withMessage('Name must be non-empty').trim().isLength({min:2,max:100}),
-  body('phone').notEmpty().withMessage('phone must be non-empty').trim().matches(/^\d{10}$/).withMessage('Must contain 10 digits')
+  body('phone').notEmpty().withMessage('phone must be non-empty').trim().matches(/^\d{10}$/).withMessage('Must contain 10 digits'),
 ];
+
+export const validatePhone =[
+  param('phone').notEmpty().matches(/^\d{10}$/).withMessage('Must contain 10 digits')
+]
 
 

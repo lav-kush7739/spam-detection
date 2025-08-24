@@ -7,7 +7,7 @@ const Paths = {
   },
   Spam: {
     Base: "/v1/spam",
-    mark: "/mark",
+    mark: "/mark/:phone",
     likelihood: "/likelihood/:phone",
   },
   Search: {
