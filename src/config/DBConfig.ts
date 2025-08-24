@@ -1,9 +1,10 @@
 import { PoolConfig } from "pg";
-import { ConnectionOptions } from "tls";
+import dotenv from "dotenv";
 
+dotenv.config();
 export default class DBConfig implements PoolConfig {
   connectionString: string;
-  ssl?: boolean | ConnectionOptions | undefined;
+  ssl?: any;
 
   constructor() {
     this.connectionString = process.env.DATABASE_URL ?? '';
