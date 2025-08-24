@@ -1,19 +1,12 @@
 import { PoolConfig } from "pg";
+import { ConnectionOptions } from "tls";
 
 export default class DBConfig implements PoolConfig {
-  host: string;
-  database: string;
-  user: string;
-  password: string;
-  port: number;
-  connectionTimeout: number;
+  connectionString: string;
+  ssl?: boolean | ConnectionOptions | undefined;
 
-  constructor(host: string, name: string, user: string) {
-    this.host = host;
-    this.database = name;
-    this.user = user;
-    this.password = process.env.DB_PASS ?? "";
-    this.port = parseInt(process.env.DB_PORT ?? "5432");
-    this.connectionTimeout = 10000;
+  constructor() {
+    this.connectionString = process.env.DATABASE_URL ?? '';
+    this.ssl = { rejectUnauthorized: false };
   }
 }

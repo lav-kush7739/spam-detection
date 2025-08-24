@@ -23,9 +23,9 @@ export default class MigrationUtil {
     const DB_USER = process.env.DB_USER ?? "";
     try {
       console.log("Migration Started...");
-      const dbConfig = new DBConfig(DB_HOST, DB_NAME, DB_USER);
+      const dbConfig = new DBConfig();
       const database = new Database(dbConfig);
-      await database.createConnection();
+      //await database.createConnection();
       await this.executeMigrationScript();
     } catch (error) {
       console.error("Migration error:", error);
